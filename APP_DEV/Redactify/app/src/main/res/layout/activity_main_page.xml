@@ -1,0 +1,52 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnSelectFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select File" />
+
+    <TextView
+        android:id="@+id/txtFileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No File Selected"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
+
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:visibility="gone"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/textPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Text Content will appear here"
+        android:visibility="gone"
+        android:textSize="14sp"
+        android:paddingTop="8dp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxAgree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agree to share your File"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnRedact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Redact"
+        android:enabled="false"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
