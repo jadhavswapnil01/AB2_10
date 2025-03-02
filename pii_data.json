@@ -1,16 +1,8 @@
 {
     "AADHAAR": "8887 6788 5537",
-    "PAN": "ABCDE1234F",
-    "MOBILE": [
-        "7891084191",
-        "2023456789"
-    ],
-    "DRIVING_LICENSE": "MH12 2023456789",
-    "CARD_NUMBER": "4111-1111-1111-1111",
     "CARD_EXPIRY": [
-        "08",
-        "26"
+        "11",
+        "2003"
     ],
-    "DOB": "15-07-1998",
-    "GMAIL": "rahul.sharma@gmail.com"
+    "DOB": "29/11/2003"
 }

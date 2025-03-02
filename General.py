@@ -1,22 +1,9 @@
 import re
 import json
 import os
-import tkinter as tk
-from tkinter import filedialog
 
-def upload_file():
-    """Open file selection dialog."""
-    root = tk.Tk()
-    root.withdraw()
-    root.attributes('-topmost', True)  # Ensure dialog is on top
-    file_path = filedialog.askopenfilename(
-        title="Select a File",
-        filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")]
-    )
-    if not file_path:
-        print("No file selected. Exiting...")
-        exit(1)
-    return file_path
+# Default file path
+DEFAULT_FILE_PATH = r"C:\Users\swapn\hackethon\AB2_10\output.txt"
 
 # Regex patterns for different types of personal data
 PII_PATTERNS = {
@@ -36,7 +23,7 @@ def read_text_file(file_path):
         with open(file_path, "r", encoding="utf-8") as file:
             return file.read()
     except Exception as e:
-        print("Error reading file:", e)
+        print(f"⚠ Error reading file {file_path}: {e}")
         return ""
 
 def detect_pii(text):
@@ -54,12 +41,16 @@ def save_pii_json(pii_data, output_path):
         os.makedirs(os.path.dirname(output_path), exist_ok=True)  # Ensure directory exists
         with open(output_path, "w", encoding="utf-8") as json_file:
             json.dump(pii_data, json_file, indent=4)
-        print(f"\n✅ Extracted PII saved to: {output_path}")
+        print(f"\nExtracted PII saved to: {output_path}")
     except Exception as e:
-        print("Error saving JSON file:", e)
+        print(f"⚠ Error saving JSON file: {e}")
 
 if __name__ == "__main__":
-    file_path = upload_file()
+    file_path = DEFAULT_FILE_PATH  # Automatically use the default file path
+    if not os.path.exists(file_path):
+        print(f"⚠ File not found: {file_path}")
+        exit(1)
+
     extracted_text = read_text_file(file_path)
     detected_pii = detect_pii(extracted_text)
 

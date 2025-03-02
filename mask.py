@@ -1,35 +1,22 @@
 import json
 import fitz  # PyMuPDF for handling PDF
 import re
-import tkinter as tk
-from tkinter import filedialog
-
-def upload_file():
-    """Open a file selection dialog to select a PDF."""
-    root = tk.Tk()
-    root.withdraw()
-    root.attributes('-topmost', True)  # Ensure dialog is on top
-    file_path = filedialog.askopenfilename(
-        title="Select a PDF File",
-        filetypes=[("PDF Files", "*.pdf"), ("All Files", "*.*")]
-    )
-    if not file_path:
-        print("No file selected. Exiting...")
-        exit(1)
-    return file_path
+import sys
+import os
 
 def load_pii_json():
-    """Load the PII JSON file generated from general.py"""
+    """Load the PII JSON file generated from general.py."""
     try:
-        with open("pii_data.json", "r", encoding="utf-8") as json_file:
+        with open("C:\\Users\\swapn\\hackethon\\AB2_10\\pii_data.json", "r", encoding="utf-8") as json_file:
             return json.load(json_file)
     except Exception as e:
         print("Error loading PII data:", e)
         exit(1)
 
-def mask_pii_in_pdf(pdf_path, pii_data):
+def mask_pii_in_pdf(pdf_path):
     """Redacts/masks the detected PII in the PDF."""
     try:
+        pii_data = load_pii_json()
         doc = fitz.open(pdf_path)
 
         # Convert PII values to a list of strings for searching
@@ -61,11 +48,14 @@ def mask_pii_in_pdf(pdf_path, pii_data):
         doc.save(output_pdf_path)
         doc.close()
 
-        print(f"✅ Masked PDF saved as: {output_pdf_path}")
+        print(output_pdf_path)  # Return the masked PDF path
     except Exception as e:
         print("Error processing PDF:", e)
 
 if __name__ == "__main__":
-    pii_data = load_pii_json()
-    pdf_path = upload_file()
-    mask_pii_in_pdf(pdf_path, pii_data)
+    if len(sys.argv) < 2:
+        print("Usage: python mask.py <pdf_file_path>")
+        exit(1)
+
+    pdf_file_path = sys.argv[1]
+    mask_pii_in_pdf(pdf_file_path)
